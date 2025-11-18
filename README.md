@@ -1,108 +1,176 @@
-anomaly-triggered-llm-agents
-Project Overview
+📘 Project Overview：An Event-Driven Multi-Layer Agent Framework for Intraday Trading with LLMs
 
-本專案研究以「異常事件觸發」為核心的盤中市場決策架構，
-透過三層式流程：L0 異常偵測、L1 事件語義化、L2 LLM 決策代理人，
-探索大型語言模型在盤中事件中的推理能力與決策一致性。
+本專案旨在建立一套 事件驅動（Event-Driven） 的盤中市場決策架構，
+透過三層式代理人流程 —— L0 市場事件偵測、L1 事件語義化、L2 LLM 決策代理人 ——
+探索大型語言模型在盤中市場情境中的推理能力、決策一致性與可行性。
 
-此 Repository 用於論文研究的版本控管，包含文獻整理、方法設計、實作與實驗結果。
+此 Repository 作為論文研究的版本控管工具，內容包含：
 
-Objectives
+文獻整理
 
-建立事件觸發式盤中市場分析流程
+方法設計
 
-使用 XGBoost 進行異常偵測（L0）
+架構實作
 
-設計事件語義化與提示生成（L1）
+實驗流程與結果
+
+研究紀錄與補充說明
+
+🎯 Objectives（研究目標）
+
+建立 事件驅動式盤中市場分析流程
+
+使用 XGBoost 構建 L0 市場事件偵測模型
+
+設計 事件語義化與 Prompt 生成流程（L1）
 
 建立 LLM 決策代理人（L2）
 
-分析模型行為、決策一致性與限制
+分析 LLM 在事件情境下的：
 
-建立可重現、可驗證的研究架構
+決策行為
 
-System Architecture
-L0 Anomaly Detection (XGBoost)
+推理品質
 
-使用盤中資料建立監督式異常偵測模型
+一致性
 
-以未來短期報酬與波動度為標註基準
+限制
 
-支援不平衡資料與 SHAP 模型解釋
+提供一套 可重現、可驗證的研究架構
 
-L1 Event Semantic Layer
+🏗️ System Architecture（系統架構）
+L0 — Event Detection Layer（XGBoost）
 
-將 L0 偵測事件轉換成 LLM 可理解的語義描述
+使用盤中資料建立 監督式事件偵測模型
 
-整合必要的市場上下文（如最近 1–5 分鐘 K 線）
+根據未來短期報酬 / 波動度定義事件標註
 
-自動生成 L2 的輸入格式
+處理資料不平衡問題
 
-L2 LLM Decision Agent
+使用 SHAP 分析模型解釋性
 
-LLM 針對事件輸出：多、空、不進場
+作為整個系統的 事件觸發器
 
-附理由與信心度
+L1 — Event Semantic Layer（事件語義化）
 
-重點在推理能力與行為模式，而非最終報酬率
+將 L0 偵測結果轉換為 LLM 可解讀的語義描述
 
-Repository Structure
+整合市場上下文（如最近 1–5 分鐘 K 線）
+
+自動生成標準化 Prompt
+
+作為 L2 決策代理人 的輸入
+
+L2 — LLM Decision Agent（決策代理人）
+
+LLM 基於事件語義與上下文輸出：
+
+多 / 空 / 不進場
+
+推理理由
+
+信心度數值（0.00–1.00）
+
+研究重點在：
+
+推理品質
+
+行為一致性
+
+對事件敏感度
+
+決策模式
+而非最終報酬率本身。
+
+📁 Repository Structure
 docs/
-    literature/   文獻整理
-    design/       架構與方法設計
-    notes/        研究紀錄
+   literature/    文獻導讀
+   design/        架構與方法設計
+notes/            研究紀錄
 src/
-    L0 L1 L2 模組程式碼
+   L0/            事件偵測模型（XGBoost）
+   L1/            事件語義化與 Prompt 模組
+   L2/            LLM 決策代理人
 data/
-    資料格式與示例（不含實際金融資料）
+   examples/      資料格式示例（無實際金融資料）
 README.md
 
-Literature
+📚 Literature Overview
 
-所有文獻導讀放置於 docs/literature
-每篇包含：背景、動機、目的、方法、實驗、結果、限制、總結（不含研究者主觀推論）
+所有文獻導讀位於 docs/literature/。
+每篇包含：
 
-Current Progress
+研究背景
 
-Repository 初始化
+動機
 
-新增第一篇文獻導讀（Park 2024）
+目的
 
-確立 L0 L1 L2 研究方向
+方法
 
-README 更新為 XGBoost 版本
+實驗
 
-Roadmap
-L0
+結果
+
+限制
+
+與本研究之關聯
+
+（不含主觀推論，僅整理原文內容）
+
+目前已完成：
+
+Park (2024) – LLM-based Multi-Agent Reasoning Framework（核心文獻）
+
+🚀 Current Progress（目前進度）
+
+Repository 初始化完成
+
+第一篇文獻導讀（Park 2024）已加入
+
+L0/L1/L2 整體架構已確立
+
+README 已調整為事件驅動版本
+
+開始規劃 L0 資料處理與標註策略
+
+🗺️ Roadmap
+L0 — Event Detection
 
 盤中資料前處理
 
-標註策略
+事件標註與定義
 
-XGBoost 訓練
+XGBoost 訓練與優化
 
-SHAP 分析
+SHAP 特徵分析
 
-L1
+L1 — Event Semantic Layer
 
 Prompt 模板設計
 
 事件語義化格式
 
-L2
+生成 L2 輸入資料
 
-LLM 初版推理測試
+L2 — LLM Decision Agent
+
+初版推理流程測試
 
 決策格式化
 
-行為分析
+行為一致性分析
 
-Evaluation
+📊 Evaluation（實驗）
 
-異常事件分布
+事件偵測分布
 
-命中率
+事件命中率（recall）
 
-決策一致性
+LLM 決策一致性
 
-回測
+決策模式分析
+
+事件前後市場反應
+
+初步回測（非最終策略）
